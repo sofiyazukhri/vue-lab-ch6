@@ -22,8 +22,8 @@
 
      /* Dark theme */
      .dark { }
-     .dark .card { background: #1E293B; color: #F1F5F9; }
-     .dark body, body.dark { background: #0F172A; }
+     .dark .card { background: #1E293B; color: #0F172A; }
+     body.dark { background: #0F172A; }
      .dark .bio { color: #94A3B8; }
 
      .editor {
@@ -106,7 +106,8 @@ skill<span v-if="skillCount !== 1">s</span>.
    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
    <script>
-     const { createApp, ref, computed } = Vue
+     const { createApp, ref, computed, watch } = Vue
+
      createApp({
      setup() {
      const name = ref('Nur Aisyah')
@@ -115,9 +116,12 @@ skill<span v-if="skillCount !== 1">s</span>.
      const avatar = ref('https://i.pravatar.cc/200?img=47')
      const darkMode = ref(false)
 
+     watch(darkMode, on => { document.body.classList.toggle('dark', on)}, { immediate:true})
+
      const skills = ref(['Vue.js', 'JavaScript', 'HTML & CSS'])
     const newSkill = ref('')
     function addSkill() {
+
      const s = newSkill.value.trim()
      if (!s) return
      if (!skills.value.includes(s)) { 
