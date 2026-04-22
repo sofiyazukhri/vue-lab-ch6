@@ -53,6 +53,8 @@
     }
     .btn:hover { background: #33A06F; }
     .dark .skills li { background: #064E3B; color: #6EE7B7; }
+
+    .muted { color: #94A3B8; font-size: .85rem; margin-top: .75rem; }
   </style>
 </head>
 
@@ -69,6 +71,15 @@
        <button @click="removeSkill(i)" title="Remove">&times;</button>
        </li>
     </ul>
+
+    <p v-if="skillCount === 0" class="muted">
+    	No skills yet — add your first skill to get started.
+</p>
+<p v-else class="muted">
+Listed <strong>{{ skillCount }}</strong>
+skill<span v-if="skillCount !== 1">s</span>.
+</p>
+
      </section>
 
      <section class="editor">
@@ -95,7 +106,7 @@
    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
    <script>
-     const { createApp, ref } = Vue
+     const { createApp, ref, computed } = Vue
      createApp({
      setup() {
      const name = ref('Nur Aisyah')
@@ -116,6 +127,11 @@
     }
     function removeSkill(index) {
      skills.value.splice(index, 1)
+    }
+
+    const skillCount = computed(() => skills.value.length)
+    return {
+    	name, title, bio, avatar, darkMode, skills, newSkill, addSkill, removeSkill, skillCount
     }
 
     return { name, title, bio, avatar, darkMode, skills, newSkill, addSkill, removeSkill }
